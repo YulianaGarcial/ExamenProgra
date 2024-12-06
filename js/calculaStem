@@ -1,0 +1,30 @@
+function calcula() {
+    // Datos iniciales
+    const K = 0.9; // Coeficiente de radiación (cal/min.cm²)
+    const t = 2 * 60; // Tiempo en minutos (2 horas)
+    const S_m2 = 4; // Superficie en m²
+    const S_cm2 = S_m2 * 10000; // Convertimos m² a cm²
+    const r = 6; // Rendimiento en litros/minuto
+    const calorEspecifico = 1; // Calor específico del agua en cal/(g·°C)
+
+    // Cálculo de energía generada en Kcal
+    const Q_cal = K * t * S_cm2 * r; // Energía generada en calorías
+    const Q_kcal = Q_cal / 1000; // Convertimos a kilocalorías
+
+    // Masa de agua calentada (6 litros/minuto × 120 minutos)
+    const masaAgua = r * t * 1000; // Convertimos litros a gramos
+
+    // Aumento de temperatura (ΔT = Q / (m · c))
+    const deltaT = Q_cal / (masaAgua * calorEspecifico);
+
+    // Conversión a kWh
+    const Q_kWh = Q_kcal * 0.00116222;
+
+    // Mostrar los resultados en el div con id "resultadoA"
+    const resultadoDiv = document.getElementById("resultadoA");
+    resultadoDiv.innerHTML = `
+        <p>Energía generada: ${Q_kcal.toFixed(2)} Kcal</p>
+        <p>Energía generada: ${Q_kWh.toFixed(2)} kWh</p>
+        <p>Aumento de temperatura del agua: ${deltaT.toFixed(2)} °C</p>
+    `;
+}
